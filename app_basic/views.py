@@ -1,9 +1,11 @@
 from rest_framework import generics
 from rest_framework import mixins
 from django_filters.rest_framework import DjangoFilterBackend
-
+from rest_framework.views import APIView
+from rest_framework.exceptions import AuthenticationFailed
 from .models  import User
 from .serializers  import UserSerializer
+from rest_framework.response import Response
 
 
 class UserAPIView(generics.GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin):
@@ -28,5 +30,20 @@ class UserAPIView(generics.GenericAPIView,mixins.ListModelMixin,mixins.CreateMod
         return self.destroy(request,id) #Delete user
 
 
+class UserLoginView(APIView):
 
+    def post(self, request):
+        email=request.data['email']
+        password = request.data['password']
 
+        user=User.objects.filter(email=email).first();
+
+        if user is None:
+            raise AuthenticationFailed("User not found !!")
+        if not user.password==password:
+            raise AuthenticationFailed("Incorrect password !!")
+        # print(user.password);
+        return Response({
+            "message":"success",
+            "user": user.name,
+        })
