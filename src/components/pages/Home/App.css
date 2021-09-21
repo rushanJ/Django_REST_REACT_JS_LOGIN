@@ -1,0 +1,23 @@
+div.one {
+  height: 1px;
+}
+ .mb50{
+   margin-bottom: 50px;
+ }
+
+ .tblHeader{
+  padding: 15px;
+  font-size: 20px;
+}
+
+.tblData{
+  padding: 15px;
+  font-size: 15px;
+}
+
+.moduleContent{
+  padding-left: 20%;
+  padding-right: 20%;
+  font-size: 15px;
+}
+
