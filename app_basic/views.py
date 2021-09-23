@@ -44,6 +44,7 @@ class UserLoginView(APIView):
             raise AuthenticationFailed("Incorrect password !!")
         # print(user.password);
         return Response({
+            "success": True,
             "message":"success",
             "user": user.name,
         })
